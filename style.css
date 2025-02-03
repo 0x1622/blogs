@@ -105,3 +105,36 @@ main {
         font-size: 2rem;
     }
 }
+.ascii-container {
+    font-family: 'Lexend Giga', monospace;
+    white-space: pre-wrap;
+    line-height: 1;
+    margin: 1.5px auto;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+    border-radius: 5px;
+    font-size: 10px;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    max-width: 100%;
+   
+}
+#dynamic-path {
+    font-family: 'Lexend Giga', monospace;
+    color: #fff;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
