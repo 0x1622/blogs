@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+@import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+
+:root {
+    --bg-color: #000000;
+    --text-color: #c9d1d9;
+    --accent-color: rgb(239, 93, 105);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Anta', serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-top: 2rem;
+}
+h3 {
+    font-size: 1.3rem;
+    color: rgb(239, 93, 105);
+}
+
+small{
+    font-size:14px;
+    color: rgb(239, 93, 105);
+}
+.post-content {
+    margin-bottom: 2rem;
+}
+
+.image-container {
+    margin: 1.5rem 0;
+}
+
+.post-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre;
+}
+
+
+pre {
+    background: #1e1e1e;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    max-width: 100%;
+}
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+
+}

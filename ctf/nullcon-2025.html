@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis of Ayushman Card Application (Scam_App)</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <article class="post">
+            <h1>Nullcon HACKIM CTF 2025</h1>
+            <p>I solved 7 challenges, but I'll share the most entertaining one. </p>
+            <div class="image-container">
+                <img src="chall_name.png" alt="chall_name" class="post-image" width="400" height="300">
+            </div>
+
+            <section class="post-content">
+                <h2>Initial Investigation</h2>
+                <p>We were given four files—two with a <small>.bin</small> extension and two with unknown extensions. After analyzing them with Binwalk, we found that the file   <small>b8ad5cbf8c8a3129...</small> was malware (ApplicationFrameHost.exe) that loads payloads, while data.bin turned out to be a JPEG file. According to the challenge description, our task was to reverse data.bin and examine its contents.</p>
+                <div class="image-container">
+                    <p>After analyzing i constrcuted the main function</p>
+                    <img src="code.png" alt="Virus scan results" class="post-image" width="600" height="200">
+
+
+            <pre><code>init_start()</code> - is used for runtime initialization
+<code>call_main_table()</code> - is used for setting up main function parameter</pre>
+<h3>Here the most intresting function we all want to see is the <code>init_all()</code></h3>
+<p>The functionality that resides in <code>init_all()</code>, which gets called after this setup phase. This function would handle:
+    <p>1.Application-specific memory transformations</p>
+    <p>2.Core program operations</p></p>
+
+    
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
