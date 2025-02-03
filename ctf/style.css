@@ -55,6 +55,13 @@ small{
     margin: 0 auto;
 }
 
+.post-image-left{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
 code {
     font-family: 'Fira Code', monospace;
     font-size: 14px;
@@ -63,14 +70,7 @@ code {
 }
 
 
-pre {
-    background: #1e1e1e;
-    border-radius: 4px;
-    padding: 1rem;
-    margin: 1rem 0;
-    overflow-x: auto;
-    max-width: 100%;
-}
+
 @media (max-width: 768px) {
     body {
         padding: 15px;
