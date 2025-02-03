@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis of Ayushman Card Application (Scam_App)</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <article class="post">
+            <h1>Analysis of Ayushman Card Application (Scam_App)</h1>
+            
+            <section class="post-content">
+                <p>When I returned from the exam, I noticed that someone had sent a random application in the WhatsApp group. This person had literally shared the app in all the groups. Later, I found out that their phone had been hacked. However, I was curious to see what was inside the 2MB application and how it worked.</p>
+                
+                <div class="image-container">
+                    <img src="image1.png" alt="WhatsApp screenshot of malicious app" class="post-image">
+                </div>
+            </section>
+
+            <section class="post-content">
+                <h2>Initial Investigation</h2>
+                <p>Upon initial investigation, it flagged several viruses and trojans.</p>
+                <div class="image-container">
+                    <img src="image2.png" alt="Virus scan results" class="post-image">
+                </div>
+            </section>
+
+            <section class="post-content">
+                <h2>Code Analysis</h2>
+                <p>The next step was to analyze its source code.</p>
+                
+                    <img src="image3.png" class="post-image">
+                    <pre><code> android.permission.RECEIVE_SMS
+  android.permission.SEND_SMS
+  android.permission.READ_SMS</code></pre>
+
+  <p>Hmm, that seems sus! Asking for permission to access SMS? That’s a classic red flag! Always be cautious with apps that request such permissions. Better safe than sorry! </p>
+<pre><code>android:exported="true"</code></pre>
+
+<p>This makes the activity accessible from outside the app, allowing me to use ADB in the terminal to run this app</p>
+<p>The AndroidManifest file helps us understand the overall app permissions, which serves as the basic starting point for the attack.</p>
+<p>After spending a few minutes, I found an interesting piece of code that constitutes the entire program logic.</p>
+
+                     <img src="image4.png" class="post-image">
+                     <pre><code>SILENTKILLER333</code></pre>
+
+                <p>Ah, this sweet code has the secret key not stored or obfuscated, making the developer seem careless. They should have at least stored it in a different parameter or obfuscated it to make it more difficult to access.
+                    <pre><code class="language-java">Cipher.getInstance("DES") and SecretKeyFactory.getInstance("DES")</code></pre> indicate that the encryption uses the DES algorithm, which requires a key to decrypt. We have the key, but where is the data we want to crack? It's like getting the answer without having theq
+                    questions
+                </p>
+
+                <p>Upon further investigation, I found the main activity in the code, which had a stored string</p>
+
+            <pre><code>public static final String store_num = EncryptionUtils.decrypt("eUlTC2MiOnL0JoptgyHQbg==");</code></pre>
+
+            <p>I wrote a python3 code to decrypt the encrypted string</p>
+
+            <img src="image5.png" class="post-image">
+
+            <h2>Decrypted the string and obtained the attacker's number.</h2>
+
+            <img src="phone.png" class="post-image">
+            <p>
+
+            </p>
+            <img src="image6.png" class="post-image">
+
+
+            <p>Though I tried to contact him on Telegram, he has been offline for the last 7 hours </p>
+
+            <img src="image7.png" class="post-image">
+            <p>This hides the app icon and Sends a confirmation SMS ("Extreme Moderate App Installed!") to the phone number stored(the attacker number)</p>
+
+            <img src="image8.png" class="post-image">
+
+            <p>This snippet listens for incoming SMS messages, extracts potential OTPs or codes, and forwards them to a predefined number <code>(f2102a)</code></p>
+
+            <h2>Tested the app on andriod emulator</h2>
+        </section>
+        <div class="video-container">
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/Tp7syIqboF4" 
+                frameborder="0" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        <h3>Discord - 0x1622</h3>
+        </article>
+    </main>
+</body>
+</html>
