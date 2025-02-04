@@ -34,7 +34,7 @@
 
     <img src="code2.png"  alt="" class="post-image" width="400" height="200">
     <p>The <small><code>sus_function()</small></code> is being called in side <small><code>init_all()</code></small> function</p>
-    <p>The <small><code>sus_function()</code></small>internally calls another function and returns its result, thus it's acting as a wrapper</p>
+    <p>The <small><code>sus_function()</code></small> internally calls another function and returns its result, thus it's acting as a wrapper</p>
     <img src="code3.png"  alt=" " class="post-image" width="600" height="200">
     <p>This function loads <small><code>SHWAPI.dll</code></small></p>
     <p>At this point I was not knowing what exactly i have to do , i started to go through each function to see its functionality
@@ -51,7 +51,7 @@
     extract two values:</p>
     <p>     1. CS → Contains the compressed/encrypted payload size (<small><code>DWORD</code></small>)</p>
     <p>     2. HS → Stores the raw payload data (<small><code>REG_BINARY</code></small>)</p>
-        <p>The <small><code>decrypt_payload</code></small>function processes raw registry data from <small><code>src_buf</code></small> (loaded via HS key) through XOR/RC4 decryption. It reconstructs a valid PE file in
+        <p>The <small><code>drypt_payload</code></small> function processes raw registry data from <small><code>src_buf</code></small> (loaded via HS key) through XOR/RC4 decryption. It reconstructs a valid PE file in
         <small><code>data_size</code></small> doubling the allocation to prevent buffer overflows during transformation. This memory-only approach converts registry-stored payloads into executable formats without disk writes, enabling stealthy in-memory execution via 
     <small><code> execute_reflective_dll()</code></small></p>
 
