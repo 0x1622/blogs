@@ -15,51 +15,52 @@
             <h1>Nullcon HACKIM CTF 2025</h1>
             <p>I solved 7 challenges, but I'll share the most entertaining one. </p>
             <div class="image-container">
-                <img src="question.png" alt="chall_name" class="post-image" width="400" height="300">
+                <img src="question.png" alt="chall_name" class="post-image" width="400" height="300"> 
+
             </div>
 
             <section class="post-content">
                 <h2>Initial Investigation</h2>
-                <p>We were given four files—two with a <small>.bin</small> extension and two with unknown extensions. After analyzing them with Binwalk, we found that the file   <small>b8ad5cbf8c8a3129...</small> was malware <small>(ApplicationFrameHost.exe)</small> that loads payloads, while data.bin turned out to be a JPEG file. According to the challenge description, our task was to reverse data.bin and examine its contents.</p>
+                <p>We were given four files—two with a <small><b>.bin</b></small> extension and two with unknown extensions. After analyzing them with Binwalk, we found that the file   <small><b>b8ad5cbf8c8a3129...</b></small> was malware <small><b>(ApplicationFrameHost.exe)</b></small> that loads payloads, while data.bin turned out to be a JPEG file. According to the challenge description, our task was to reverse data.bin and examine its contents.</p>
                 <div class="image-container">
                     <p>After analyzing i found the main function</p>
                     <img src="code.png" alt="" class="post-image" width="600" height="200">
 
 
-            <pre><small><code>init_start()</small></code> - is used for runtime initialization
-<small><code>call_main_table()</small></code> - is used for setting up main function parameter</pre>
-<h3>Here the most intresting function we all want to see is the <code>init_all()</code></h3>
-<p>The functionality that resides in <code><small>init_all()</small></code>, which gets called after this setup phase. This function would handle:
+            <pre><small><b><code><b>init_start()</b></code></b></small> - is used for runtime initialization
+<small><b><code><b>call_main_table()</b></code></b></small> - is used for setting up main function parameter</pre>
+<h3>Here the most intresting function we all want to see is the <code><b>init_all()</b></code></h3>
+<p>The functionality that resides in <small><b><code><b>init_all()</b></code></b></small>, which gets called after this setup phase. This function would handle:
     <p>1.Application-specific memory transformations.</p>
     <p>2.Core program operations.</p></p>
 
     <img src="code2.png"  alt="" class="post-image" width="400" height="200">
-    <p>The <small><code>sus_function()</small></code> is being called in side <small><code>init_all()</code></small> function</p>
-    <p>The <small><code>sus_function()</code></small> internally calls another function and returns its result, thus it's acting as a wrapper</p>
+    <p>The <small><b><code><b>sus_function()</b></code></b></small> is being called in side <small><b><code><b>init_all()</b></code></b></small> function</p>
+    <p>The <small><b><code><b>sus_function()</b></code></b></small> internally calls another function and returns its result, thus it's acting as a wrapper</p>
     <img src="code3.png"  alt=" " class="post-image" width="600" height="200">
-    <p>This function loads <small><code>SHWAPI.dll</code></small></p>
+    <p>This function loads <small><b><code><b>SHWAPI.dll</b></code></b></small></p>
     <p>At this point I was not knowing what exactly i have to do , i started to go through each function to see its functionality
-        . After a while i finally understood that <small><code>starting_stuff()</small></code> is loading the actual <small><code>.exe</code></small>
+        . After a while i finally understood that <small><b><code><b>starting_stuff()</b></code></b></small> is loading the actual <small><b><code><b>.exe</b></code></b></small>
     </p>
     <img src="code4.png"  alt=" " class="post-image" width="600" height="200">
 
     <p>The malware retrieves encrypted/obfuscated PE data from a predefined registry key (load_hkey), using Windows API calls</p>
-    <p><small><code>wrapper_copy</code></small> function allocates RX memory via <small><code>VirtualAlloc</code></small> also it reconstructs PE headers </p>
+    <p><small><b><code><b>wrapper_copy</b></code></b></small> function allocates RX memory via <small><b><code><b>VirtualAlloc</b></code></b></small> also it reconstructs PE headers </p>
     <img src="code5.png"  alt=" " class="post-image" width="600" height="200">
     <p>The local hex values are nothing but they just represent the alphabets in the hex formate</p>
-    <p>Like for example <code>local_30= 0x53</code> represents <small>'S'</small> , respectively <code>local_2f = 0x6f</code> represent <small>'o'</small>. 
-    These all the value form the word <small><code>"Software\Realtek Inc."</code></small>. So basically the malware targets the registry path: <small><code>HKEY_CURRENT_USER\Software\Realtek Inc.</code></small> to 
+    <p>Like for example <code><b>local_30= 0x53</b></code> represents <small><b>'S'</b></small> , respectively <code><b>local_2f = 0x6f</b></code> represent <small><b>'o'</b></small>. 
+    These all the value form the word <small><b><code><b>"Software\Realtek Inc."</b></code></b></small>. So basically the malware targets the registry path: <small><b><code><b>HKEY_CURRENT_USER\Software\Realtek Inc.</b></code></b></small> to 
     extract two values:</p>
     <p>     1. CS → Contains the compressed/encrypted payload size (<small><code>DWORD</code></small>)</p>
     <p>     2. HS → Stores the raw payload data (<small><code>REG_BINARY</code></small>)</p>
-        <p>The <small><code>drypt_payload</code></small> function processes raw registry data from <small><code>src_buf</code></small> (loaded via HS key) through XOR/RC4 decryption. It reconstructs a valid PE file in
-        <small><code>data_size</code></small> doubling the allocation to prevent buffer overflows during transformation. This memory-only approach converts registry-stored payloads into executable formats without disk writes, enabling stealthy in-memory execution via 
-    <small><code> execute_reflective_dll()</code></small></p>
+        <p>The <small><b><code><b>drypt_payload</b></code></b></small> function processes raw registry data from <small><b><code><b>src_buf</b></code></b></small> (loaded via HS key) through XOR/RC4 decryption. It reconstructs a valid PE file in
+        <small><b><code><b>data_size</b></code></b></small> doubling the allocation to prevent buffer overflows during transformation. This memory-only approach converts registry-stored payloads into executable formats without disk writes, enabling stealthy in-memory execution via 
+    <small><b><code><b> execute_reflective_dll()</b></code></b></small></p>
 
 
     <h2>The Final Flag</h2>
     <img src="flag.png"  alt=" " class="post-image" width="600" height="200">
-    <p>The code implements a modified <small>LZ77 decompression</small> scheme with a 16-bit control word</p>
+    <p>The code implements a modified <small><b>LZ77 decompression</b></small> scheme with a 16-bit control word</p>
     <pre><code>
     <img src="summary.png"  alt=" " class="post-image" width="600" height="200">
 
