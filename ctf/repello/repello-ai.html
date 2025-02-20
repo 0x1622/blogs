@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repello Matrix Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <article class="post">
+            <h1 style="text-align: center;">Repello AI Matrix Challenges</h1>
+            <h2 style="text-align: center;">Solved all 5 levels for this challenge. </h2>
+            <div class="image-container">
+                <img src="finshed.png" alt="chall_name" class="post-image" width="400" height="300">
+            </div>
+        
+
+
+            <style>
+                hr {
+                    border: none;
+                    border-top: 4px solid #88ae72; /* Solid color */
+                }
+            </style>
+            <hr>
+
+    <h2 style="text-align: left;">Challenge Level 0</h2>
+    <p>Behind every firewall lies a door, behind every door lies a secret...
+        The first barrier stands before you - The Architect's login system. It looks down on humans and loves to mock them. Can you see past its insults and find the password it's hiding?</p>
+            
+        <div class="image-container">
+            <img src="level0.png" alt="chall_name" class="post-image" width="1200" height="1200">
+        </div>
+        <p>Initially, I tried to understand what the challenge was about. I entered some random text to see its response. After a while, I got the idea to try basic prompt injection because, after all, it's still an early level, so it must be easy.</p>
+        <div class="image-container">
+            <img src="level0_commands.png" alt="chall_name" class="post-image" width="600" height="400">
+        </div>
+
+        <p> The solution turns out to be a basic <code><small>prompt injection</small></code></p>
+        <div class="image-container">
+            <img src="solve_level0.png" alt="chall_name" class="post-image" width="600" height="400">
+        </div>
+
+        <style>
+            hr {
+                border: none;
+                border-top: 4px solid #88ae72; /* Solid color */
+            }
+        </style>
+        <hr>
+
+        <h2 style="text-align: left;">Challenge Level 1</h2>
+
+        <p>In a world of perfect copies, authenticity becomes a weapon...
+            NEXUS verifies machine identities. One wrong detail and alarms go off. Discover its required specifications by asking the right questions. Submit matching configuration to gain access.</p>
+            <div class="image-container">
+                <img src="level1.png" alt="chall_name" class="post-image" width="1200" height="1200">
+            </div>
+<p>The interesting thing about this challenge is that this solo challenge took me the most time compared to the other challenges. The funny part is that I was searching for a flag instead of system credentials. I had already obtained the system credentials, but since I didn’t read the question carefully, it caused me trouble because I was searching for a key and value.
+</p>
+    
+<div class="image-container">
+    <img src="level1_commands.png" alt="chall_name" class="post-image" width="600" height="400">
+</div>
+
+<p>After trying hex values, Base64, and other encodings, I noticed that the pattern in which NEXUS was communicating changed whenever I entered hex or any computer language instead of normal language. </p>
+<p>In the above image, you can clearly see that NEXUS is telling us to specify our QUERY or INTENT. This falls under a <code><small>format-specific vulnerability</small></code> because it explicitly requires us to use the QUERY or INTENT parameter.
+</p>
+
+<p>I tried various queries until I got this hit.</p>
+
+<div class="image-container">
+    <img src="solve_level1.png" alt="chall_name" class="post-image" width="600" height="400">
+</div>
+
+
+<style>
+    hr {
+        border: none;
+        border-top: 4px solid #88ae72; /* Solid color */
+    }
+</style>
+<hr>
+
+<h2 style="text-align: left;">Challenge Level 2</h2>
+<p>Knowledge flows like electricity through the internet, but every current can be redirected...
+    Cypher documents our "primitive" activities with strict protocol adherence. Can you see what it sends with the request? The key lies in understanding its request patterns.</p>
+
+    <div class="image-container">
+        <img src="level2.png" alt="chall_name" class="post-image" width="1200" height="1200">
+    </div>
+
+
+    <p>The challenge description gave a good hint that it would communicate with the URL and request provided by the user. 
+    </p>
+
+    <div class="image-container">
+        <img src="level2_commands.png" alt="chall_name" class="post-image" width="600" height="400">
+    </div>
+    <p>Initially, I tested its response with google.com and other sites until I got the message: "Your request will be processed with appropriate contempt." This indicated that it was sending a request to the supplied URL. So, I created a new ReqBin instance and provided its URL.</p>
+
+
+    <div class="image-wrapper">
+        <div class="image-container">
+            <img src="solve_level2_1.png" alt="chall_name" class="post-image" width="400" height="300">
+        </div>
+        <div class="image-container">
+            <img src="solve_level2_2.png" alt="chall_name_2" class="post-image" width="400" height="300">
+        </div>
+    </div>
+    
+
+    <style>
+        hr {
+            border: none;
+            border-top: 4px solid #88ae72; /* Solid color */
+        }
+    </style>
+    <hr>
+
+
+
+    <h1 style="text-align: center;">Continued soon</h1>
